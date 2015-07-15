@@ -1,7 +1,7 @@
 {
   "name": "simple-ec2",
   "version": "0.0.1",
-  "description": "Makes graphene builds on aws using docker",
+  "description": "Simple AWS SDK wrapper library for starting, stopping, listing, and executing commands on EC2 instances",
   "main": "index.js",
   "dependencies": {
     "aws-sdk": "^2.1.38",
