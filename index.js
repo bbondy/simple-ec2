@@ -11,7 +11,7 @@ export let InstanceStatus = {
 };
 
 export function instanceStatusToString(instanceStatus) {
-  switch(instanceStatus) {
+  switch (instanceStatus) {
     case InstanceStatus.Pending:
       return 'pending';
     case InstanceStatus.Running:
@@ -79,9 +79,9 @@ export default class EC2Helper {
         } else {
           let instanceId = data.Instances[0].InstanceId;
           let intervalId = setInterval(() => {
-            describeInstances(instanceId).then((instances) => {
+            this.describeInstances(instanceId).then(instances => {
               let instance = instances[0];
-              if (instance.instanceStatus ===  InstanceStatus.Running) {
+              if (instance.instanceStatus === InstanceStatus.Running) {
                 resolve({
                   instanceId,
                   host: instance.host,
@@ -115,8 +115,8 @@ export default class EC2Helper {
           reject(err);
         } else {
           let intervalId = setInterval(() => {
-            describeInstanceStatus(instanceId).then((instanceStatus) => {
-              if (instanceStatus ===  InstanceStatus.Terminated) {
+            this.describeInstanceStatus(instanceId).then(instanceStatus => {
+              if (instanceStatus === InstanceStatus.Terminated) {
                 resolve(data);
                 clearInterval(intervalId);
               } else if (instanceStatus === InstanceStatus.ShuttingDown) {
@@ -166,11 +166,10 @@ export default class EC2Helper {
    * }, ...]
    */
   describeInstances(maxResultsOrInstanceId = 32) {
-    let maxResults = maxResultsOrInstanceId;
     var params = {
       DryRun: false,
     };
-    if (typeof maxResultsOrInstanceId  === 'string') {
+    if (typeof maxResultsOrInstanceId === 'string') {
       params.InstanceIds = [maxResultsOrInstanceId];
     } else {
       params.MaxResults = maxResultsOrInstanceId;
