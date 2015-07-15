@@ -2,7 +2,7 @@
   "name": "simple-ec2",
   "version": "0.0.2",
   "description": "Simple AWS SDK wrapper library for starting, stopping, listing, and executing commands on EC2 instances",
-  "main": "index.js",
+  "main": "dist/index.js",
   "dependencies": {
     "aws-sdk": "^2.1.38",
     "babel": "^5.6.14"
@@ -13,6 +13,7 @@
   },
   "scripts": {
     "start": "babel-node index.js",
+    "build": "babel --modules umd index.js --out-file dist/index.js  --source-maps",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint index.js"
   },
